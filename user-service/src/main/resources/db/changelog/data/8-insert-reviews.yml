@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8-insert-reviews
+      author: chefmoha
+      changes:
+        - insert:
+            tableName: review
+            columns:
+              - column:
+                  name: product_id
+                  value: "1"
+              - column:
+                  name: user_id
+                  value: "1"
+              - column:
+                  name: rating
+                  value: "5"
+              - column:
+                  name: title
+                  value: "Amazing phone!"
+              - column:
+                  name: comment
+                  value: "The camera quality is incredible and the titanium design feels premium."
+              - column:
+                  name: verified_purchase
+                  value: "true"
+        - insert:
+            tableName: review
+            columns:
+              - column:
+                  name: product_id
+                  value: "3"
+              - column:
+                  name: user_id
+                  value: "2"
+              - column:
+                  name: rating
+                  value: "4"
+              - column:
+                  name: title
+                  value: "Classic literature"
+              - column:
+                  name: comment
+                  value: "A timeless story that's still relevant today. Great condition book."
+              - column:
+                  name: verified_purchase
+                  value: "false"
+        - insert:
+            tableName: review
+            columns:
+              - column:
+                  name: product_id
+                  value: "4"
+              - column:
+                  name: user_id
+                  value: "2"
+              - column:
+                  name: rating
+                  value: "5"
+              - column:
+                  name: title
+                  value: "Perfect fit and comfort"
+              - column:
+                  name: comment
+                  value: "These sneakers are incredibly comfortable for daily wear. true to size."
+              - column:
+                  name: verified_purchase
+                  value: "true"

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-add-product-constraints
+      author: chefmoha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: product
+            baseColumnNames: category_id
+            referencedTableName: category
+            referencedColumnNames: id
+            constraintName: fk_product_category
+            onDelete: SET NULL
+            onUpdate: CASCADE

@@ -1,0 +1,52 @@
+databaseChangeLog:
+  ## TABLES ##
+  - include:
+      file: db/changelog/tables/1-add-product.yml
+  - include:
+      file: db/changelog/tables/2-add-category.yml
+  - include:
+      file: db/changelog/tables/3-add-user.yml
+  - include:
+      file: db/changelog/tables/4-add-order.yml
+  - include:
+      file: db/changelog/tables/5-add-order-item.yml
+  - include:
+      file: db/changelog/tables/6-add-cart.yml
+  - include:
+      file: db/changelog/tables/7-add-review.yml
+  - include:
+      file: db/changelog/tables/8-add-address.yml
+
+
+  ## CONSTRAINTS ##
+  - include:
+      file: db/changelog/constraints/1-add-product-constraints.yml
+  - include:
+      file: db/changelog/constraints/2-add-order-constraints.yml
+  - include:
+      file: db/changelog/constraints/3-add-order-item-constraints.yml
+  - include:
+      file: db/changelog/constraints/4-add-cart-constraints.yml
+  - include:
+      file: db/changelog/constraints/5-add-review-constraints.yml
+  - include:
+      file: db/changelog/constraints/6-add-address-constraints.yml
+
+
+  ## DATA ##
+  - include:
+      file: db/changelog/data/1-insert-categories.yml
+  - include:
+      file: db/changelog/data/2-insert-users.yml
+  - include:
+      file: db/changelog/data/3-insert-products.yml
+  - include:
+      file: db/changelog/data/4-insert-addresses.yml
+  - include:
+      file: db/changelog/data/5-insert-cart.yml
+  - include:
+      file: db/changelog/data/6-insert-orders.yml
+  - include:
+      file: db/changelog/data/7-insert-order-items.yml
+  - include:
+      file: db/changelog/data/8-insert-reviews.yml

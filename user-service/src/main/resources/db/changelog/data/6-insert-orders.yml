@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6-insert-orders
+      author: chefmoha
+      changes:
+        - insert:
+            tableName: customer_order
+            columns:
+              - column:
+                  name: user_id
+                  value: "1"
+              - column:
+                  name: order_number
+                  value: "ORD-2025-001"
+              - column:
+                  name: status
+                  value: "DELIVERED"
+              - column:
+                  name: total_amount
+                  value: "1312.98"
+              - column:
+                  name: shipping_address_id
+                  value: "1"
+              - column:
+                  name: payment_method
+                  value: "CREDIT_CARD"
+              - column:
+                  name: payment_status
+                  value: "PAID"
+              - column:
+                  name: notes
+                  value: "First test order"
+        - insert:
+            tableName: customer_order
+            columns:
+              - column:
+                  name: user_id
+                  value: "2"
+              - column:
+                  name: order_number
+                  value: "ORD-2025-002"
+              - column:
+                  name: status
+                  value: "PROCESSING"
+              - column:
+                  name: total_amount
+                  value: "132.99"
+              - column:
+                  name: shipping_address_id
+                  value: "2"
+              - column:
+                  name: payment_method
+                  value: "PAYPAL"
+              - column:
+                  name: payment_status
+                  value: "PAID"

@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-insert-categories
+      author: chefmoha
+      changes:
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: "Electronics"
+              - column:
+                  name: description
+                  value: "Electronic devices and gadgets"
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: "Books"
+              - column:
+                  name: description
+                  value: "Books and literature"
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: "Clothing"
+              - column:
+                  name: description
+                  value: "Apparel and fashion items"
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: "Home & Garden"
+              - column:
+                  name: description
+                  value: "Home improvement and gardening supplies"

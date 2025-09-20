@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-add-order-constraints
+      author: chefmoha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: customer_order
+            baseColumnNames: user_id
+            referencedTableName: app_user
+            referencedColumnNames: id
+            constraintName: fk_order_user
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: customer_order
+            baseColumnNames: shipping_address_id
+            referencedTableName: address
+            referencedColumnNames: id
+            constraintName: fk_order_shipping_address
+            onDelete: SET NULL
+            onUpdate: CASCADE

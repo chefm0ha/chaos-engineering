@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6-add-address-constraints
+      author: chefmoha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: address
+            baseColumnNames: user_id
+            referencedTableName: app_user
+            referencedColumnNames: id
+            constraintName: fk_address_user
+            onDelete: CASCADE
+            onUpdate: CASCADE

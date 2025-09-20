@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-insert-products
+      author: chefmoha
+      changes:
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: "iPhone 15 Pro"
+              - column:
+                  name: description
+                  value: "Latest Apple smartphone with titanium design"
+              - column:
+                  name: price
+                  value: "999.99"
+              - column:
+                  name: category_id
+                  value: "1"
+              - column:
+                  name: stock_quantity
+                  value: "50"
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: "MacBook Air M3"
+              - column:
+                  name: description
+                  value: "Ultra-thin laptop with M3 chip"
+              - column:
+                  name: price
+                  value: "1299.99"
+              - column:
+                  name: category_id
+                  value: "1"
+              - column:
+                  name: stock_quantity
+                  value: "25"
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: "The Great Gatsby"
+              - column:
+                  name: description
+                  value: "Classic American novel by F. Scott Fitzgerald"
+              - column:
+                  name: price
+                  value: "12.99"
+              - column:
+                  name: category_id
+                  value: "2"
+              - column:
+                  name: stock_quantity
+                  value: "100"
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: "Nike Air Max 90"
+              - column:
+                  name: description
+                  value: "Classic running sneakers"
+              - column:
+                  name: price
+                  value: "120.00"
+              - column:
+                  name: category_id
+                  value: "3"
+              - column:
+                  name: stock_quantity
+                  value: "75"
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: "Garden Hose 50ft"
+              - column:
+                  name: description
+                  value: "Durable rubber garden hose"
+              - column:
+                  name: price
+                  value: "45.99"
+              - column:
+                  name: category_id
+                  value: "4"
+              - column:
+                  name: stock_quantity
+                  value: "30"

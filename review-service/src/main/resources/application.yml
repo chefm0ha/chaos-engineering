@@ -1,0 +1,33 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: review-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce_shared_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+  liquibase:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+# External service URLs
+services:
+  user-service:
+    url: http://localhost:8081
+  product-service:
+    url: http://localhost:8082

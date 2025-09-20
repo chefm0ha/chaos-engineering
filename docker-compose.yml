@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  shared-postgres:
+    image: postgres:15-alpine
+    container_name: ecommerce-shared-postgres
+    environment:
+      POSTGRES_DB: ecommerce_shared_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - shared_db_data:/var/lib/postgresql/data
+
+volumes:
+  shared_db_data:
