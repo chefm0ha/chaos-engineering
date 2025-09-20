@@ -1,0 +1,93 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # User Service Routes
+        - id: user-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=0
+
+        # Product Service Routes
+        - id: product-service-products
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - StripPrefix=0
+
+        - id: product-service-categories
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/categories/**
+          filters:
+            - StripPrefix=0
+
+        # Cart Service Routes
+        - id: cart-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/users/*/cart/**
+          filters:
+            - StripPrefix=0
+
+        # Order Service Routes
+        - id: order-service-user-orders
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/users/*/orders/**
+          filters:
+            - StripPrefix=0
+
+        - id: order-service-global
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - StripPrefix=0
+
+        # Review Service Routes
+        - id: review-service-user-reviews
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/users/*/reviews/**
+          filters:
+            - StripPrefix=0
+
+        - id: review-service-product-reviews
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/products/*/reviews/**
+          filters:
+            - StripPrefix=0
+
+      # Global CORS configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,gateway
+  endpoint:
+    gateway:
+      enabled: true

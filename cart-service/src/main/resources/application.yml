@@ -28,6 +28,6 @@ management:
 # External service URLs
 services:
   user-service:
-    url: http://localhost:8081
+    url: http://localhost:8080
   product-service:
-    url: http://localhost:8082
+    url: http://localhost:8080

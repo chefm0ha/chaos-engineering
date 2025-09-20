@@ -1,7 +1,5 @@
 package com.devops.reviewservice.exception;
 
-import com.devops.userservice.exception.DuplicateResourceException;
-import com.devops.userservice.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
