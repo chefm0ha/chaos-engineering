@@ -1,0 +1,13 @@
+meta {
+  name: Cancel Order
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/api/users/{{userId}}/orders/{{orderId}}
+}
+
+headers {
+  Content-Type: application/json
+}

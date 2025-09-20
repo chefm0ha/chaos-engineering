@@ -1,0 +1,13 @@
+meta {
+  name: Update Payment Status
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/users/{{userId}}/orders/{{orderId}}/payment-status?paymentStatus=PAID
+}
+
+headers {
+  Content-Type: application/json
+}

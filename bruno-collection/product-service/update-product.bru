@@ -1,0 +1,25 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{baseUrl}}/api/products/{{productId}}
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Updated Gaming Laptop",
+    "description": "Updated high-performance gaming laptop with RTX graphics",
+    "price": 1399.99,
+    "categoryId": 1,
+    "stockQuantity": 45,
+    "imageUrl": "https://example.com/updated-laptop.jpg"
+  }
+}

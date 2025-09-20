@@ -1,0 +1,13 @@
+meta {
+  name: Get Orders by Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/orders/status/PENDING
+}
+
+headers {
+  Content-Type: application/json
+}

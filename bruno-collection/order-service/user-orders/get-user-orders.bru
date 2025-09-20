@@ -1,0 +1,13 @@
+meta {
+  name: Get User Orders
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/users/{{userId}}/orders
+}
+
+headers {
+  Content-Type: application/json
+}

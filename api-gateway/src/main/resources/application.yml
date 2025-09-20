@@ -8,26 +8,20 @@ spring:
   cloud:
     gateway:
       routes:
-        # User Service Routes
-        - id: user-service
-          uri: http://localhost:8081
+        # SPECIFIC ROUTES FIRST - Order matters!
+
+        # Review Service Routes
+        - id: review-service-user-reviews
+          uri: http://localhost:8085
           predicates:
-            - Path=/api/users/**
+            - Path=/api/users/*/reviews/**
           filters:
             - StripPrefix=0
 
-        # Product Service Routes
-        - id: product-service-products
-          uri: http://localhost:8082
+        - id: review-service-product-reviews
+          uri: http://localhost:8085
           predicates:
-            - Path=/api/products/**
-          filters:
-            - StripPrefix=0
-
-        - id: product-service-categories
-          uri: http://localhost:8082
-          predicates:
-            - Path=/api/categories/**
+            - Path=/api/products/*/reviews/**
           filters:
             - StripPrefix=0
 
@@ -54,18 +48,28 @@ spring:
           filters:
             - StripPrefix=0
 
-        # Review Service Routes
-        - id: review-service-user-reviews
-          uri: http://localhost:8085
+        # GENERAL ROUTES LAST
+
+        # User Service Routes (MUST be after specific /users/* routes)
+        - id: user-service
+          uri: http://localhost:8081
           predicates:
-            - Path=/api/users/*/reviews/**
+            - Path=/api/users/**
           filters:
             - StripPrefix=0
 
-        - id: review-service-product-reviews
-          uri: http://localhost:8085
+        # Product Service Routes
+        - id: product-service-categories
+          uri: http://localhost:8082
           predicates:
-            - Path=/api/products/*/reviews/**
+            - Path=/api/categories/**
+          filters:
+            - StripPrefix=0
+
+        - id: product-service-products
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/products/**
           filters:
             - StripPrefix=0
 

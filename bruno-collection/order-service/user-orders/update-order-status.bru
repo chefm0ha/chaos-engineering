@@ -1,0 +1,13 @@
+meta {
+  name: Update Order Status
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/api/users/{{userId}}/orders/{{orderId}}/status?status=SHIPPED
+}
+
+headers {
+  Content-Type: application/json
+}

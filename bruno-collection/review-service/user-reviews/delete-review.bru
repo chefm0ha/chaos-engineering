@@ -1,0 +1,13 @@
+meta {
+  name: Delete Review
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/users/{{userId}}/reviews/{{reviewId}}
+}
+
+headers {
+  Content-Type: application/json
+}

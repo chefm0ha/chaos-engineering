@@ -1,0 +1,13 @@
+meta {
+  name: Get Products by Price Range
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/products/price-range?minPrice=100&maxPrice=500
+}
+
+headers {
+  Content-Type: application/json
+}

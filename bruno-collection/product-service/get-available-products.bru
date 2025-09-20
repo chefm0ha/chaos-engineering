@@ -1,0 +1,13 @@
+meta {
+  name: Get Available Products
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/products/available
+}
+
+headers {
+  Content-Type: application/json
+}

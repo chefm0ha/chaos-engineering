@@ -1,0 +1,25 @@
+meta {
+  name: Update Address
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/users/{{userId}}/addresses/{{addressId}}
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "street": "456 Oak Ave",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zipCode": "90210",
+    "country": "USA",
+    "isDefault": false
+  }
+}

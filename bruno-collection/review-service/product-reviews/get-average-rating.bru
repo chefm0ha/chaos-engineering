@@ -1,0 +1,13 @@
+meta {
+  name: Get Average Rating
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/products/{{productId}}/reviews/average-rating
+}
+
+headers {
+  Content-Type: application/json
+}

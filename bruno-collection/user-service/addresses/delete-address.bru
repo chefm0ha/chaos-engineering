@@ -1,0 +1,13 @@
+meta {
+  name: Delete Address
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/users/{{userId}}/addresses/{{addressId}}
+}
+
+headers {
+  Content-Type: application/json
+}

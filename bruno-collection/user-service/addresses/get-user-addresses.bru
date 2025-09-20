@@ -1,0 +1,13 @@
+meta {
+  name: Get User Addresses
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/users/{{userId}}/addresses
+}
+
+headers {
+  Content-Type: application/json
+}

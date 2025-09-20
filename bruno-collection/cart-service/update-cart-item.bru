@@ -1,0 +1,21 @@
+meta {
+  name: Update Cart Item
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/api/users/{{userId}}/cart/1
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "productId": 1,
+    "quantity": 5
+  }
+}

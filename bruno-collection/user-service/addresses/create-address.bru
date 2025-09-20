@@ -1,0 +1,25 @@
+meta {
+  name: Create Address
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/users/{{userId}}/addresses
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "zipCode": "10001",
+    "country": "USA",
+    "isDefault": true
+  }
+}

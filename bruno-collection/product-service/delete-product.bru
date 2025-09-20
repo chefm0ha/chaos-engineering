@@ -1,0 +1,13 @@
+meta {
+  name: Delete Product
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{baseUrl}}/api/products/{{productId}}
+}
+
+headers {
+  Content-Type: application/json
+}

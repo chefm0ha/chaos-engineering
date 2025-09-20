@@ -1,0 +1,13 @@
+meta {
+  name: Update Product Stock
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{baseUrl}}/api/products/{{productId}}/stock?stockQuantity=100
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,13 @@
+meta {
+  name: Remove from Cart
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/users/{{userId}}/cart/1
+}
+
+headers {
+  Content-Type: application/json
+}

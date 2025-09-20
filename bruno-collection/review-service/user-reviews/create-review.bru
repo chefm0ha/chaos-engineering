@@ -1,0 +1,23 @@
+meta {
+  name: Create Review
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/users/{{userId}}/reviews
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "productId": 1,
+    "rating": 5,
+    "comment": "Excellent product! Highly recommended.",
+    "title": "Amazing Quality"
+  }
+}

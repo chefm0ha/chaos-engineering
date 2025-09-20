@@ -1,0 +1,13 @@
+meta {
+  name: Get High-Rated Reviews
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/products/{{productId}}/reviews/high-rated?minRating=4
+}
+
+headers {
+  Content-Type: application/json
+}

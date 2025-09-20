@@ -1,0 +1,13 @@
+meta {
+  name: Get Review Count
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/products/{{productId}}/reviews/count
+}
+
+headers {
+  Content-Type: application/json
+}

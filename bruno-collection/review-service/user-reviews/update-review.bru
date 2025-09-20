@@ -1,0 +1,23 @@
+meta {
+  name: Update Review
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/api/users/{{userId}}/reviews/{{reviewId}}
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "productId": 1,
+    "rating": 4,
+    "comment": "Good product with minor issues.",
+    "title": "Good Quality"
+  }
+}

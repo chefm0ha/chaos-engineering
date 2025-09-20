@@ -1,0 +1,25 @@
+meta {
+  name: Create Product
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/products
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Gaming Laptop",
+    "description": "High-performance gaming laptop with RTX graphics",
+    "price": 1299.99,
+    "categoryId": 1,
+    "stockQuantity": 50,
+    "imageUrl": "https://example.com/laptop.jpg"
+  }
+}

@@ -1,0 +1,13 @@
+meta {
+  name: Get User Reviews
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/users/{{userId}}/reviews
+}
+
+headers {
+  Content-Type: application/json
+}
