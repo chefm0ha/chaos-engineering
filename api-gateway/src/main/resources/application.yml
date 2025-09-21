@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: api-gateway
+  profiles:
+    active: local  # Default profile
 
   cloud:
     gateway:
@@ -12,14 +14,14 @@ spring:
 
         # Review Service Routes
         - id: review-service-user-reviews
-          uri: http://localhost:8085
+          uri: ${services.review-service.url}
           predicates:
             - Path=/api/users/*/reviews/**
           filters:
             - StripPrefix=0
 
         - id: review-service-product-reviews
-          uri: http://localhost:8085
+          uri: ${services.review-service.url}
           predicates:
             - Path=/api/products/*/reviews/**
           filters:
@@ -27,7 +29,7 @@ spring:
 
         # Cart Service Routes
         - id: cart-service
-          uri: http://localhost:8083
+          uri: ${services.cart-service.url}
           predicates:
             - Path=/api/users/*/cart/**
           filters:
@@ -35,14 +37,14 @@ spring:
 
         # Order Service Routes
         - id: order-service-user-orders
-          uri: http://localhost:8084
+          uri: ${services.order-service.url}
           predicates:
             - Path=/api/users/*/orders/**
           filters:
             - StripPrefix=0
 
         - id: order-service-global
-          uri: http://localhost:8084
+          uri: ${services.order-service.url}
           predicates:
             - Path=/api/orders/**
           filters:
@@ -52,7 +54,7 @@ spring:
 
         # User Service Routes (MUST be after specific /users/* routes)
         - id: user-service
-          uri: http://localhost:8081
+          uri: ${services.user-service.url}
           predicates:
             - Path=/api/users/**
           filters:
@@ -60,14 +62,14 @@ spring:
 
         # Product Service Routes
         - id: product-service-categories
-          uri: http://localhost:8082
+          uri: ${services.product-service.url}
           predicates:
             - Path=/api/categories/**
           filters:
             - StripPrefix=0
 
         - id: product-service-products
-          uri: http://localhost:8082
+          uri: ${services.product-service.url}
           predicates:
             - Path=/api/products/**
           filters:
@@ -86,6 +88,19 @@ spring:
               - PATCH
               - OPTIONS
             allowedHeaders: "*"
+
+# Default service URLs (localhost - for local development)
+services:
+  user-service:
+    url: http://localhost:8081
+  product-service:
+    url: http://localhost:8082
+  cart-service:
+    url: http://localhost:8083
+  order-service:
+    url: http://localhost:8084
+  review-service:
+    url: http://localhost:8085
 
 management:
   endpoints:

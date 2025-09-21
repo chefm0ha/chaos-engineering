@@ -1,0 +1,14 @@
+# Docker-specific configuration
+# Override service URLs for containerized environment
+
+services:
+  user-service:
+    url: http://user-service:8081
+  product-service:
+    url: http://product-service:8082
+  cart-service:
+    url: http://cart-service:8083
+  order-service:
+    url: http://order-service:8084
+  review-service:
+    url: http://review-service:8085
