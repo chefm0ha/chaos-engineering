@@ -3,7 +3,9 @@ package com.devops.userservice.service;
 import com.devops.userservice.exception.DuplicateResourceException;
 import com.devops.userservice.exception.ResourceNotFoundException;
 import com.devops.userservice.model.dto.request.UserRequestDto;
+import com.devops.userservice.model.dto.response.AddressResponseDto;
 import com.devops.userservice.model.dto.response.UserResponseDto;
+import com.devops.userservice.model.entity.Address;
 import com.devops.userservice.model.entity.User;
 import com.devops.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,27 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(this::mapToResponseDto)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> getAllUsersWithAddresses() {
+        return userRepository.findAll().stream()
+                .map(this::mapToResponseDtoWithAddresses)
+                .toList();
+    }
+
+    // Add this mapping method
+    private UserResponseDto mapToResponseDtoWithAddresses(User user) {
+        UserResponseDto dto = modelMapper.map(user, UserResponseDto.class);
+
+        // Map addresses
+        List<AddressResponseDto> addresses = user.getAddresses().stream()
+                .filter(Address::getActive)
+                .map(address -> modelMapper.map(address, AddressResponseDto.class))
+                .toList();
+
+        dto.setAddresses(addresses);
+        return dto;
     }
 
     @Transactional(readOnly = true)

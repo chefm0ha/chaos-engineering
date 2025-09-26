@@ -3,6 +3,7 @@ package com.devops.userservice.model.dto.response;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class UserResponseDto {
@@ -14,4 +15,5 @@ public class UserResponseDto {
     private Boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private List<AddressResponseDto> addresses;
 }
