@@ -31,3 +31,9 @@ management:
     web:
       exposure:
         include: health,info,metrics,prometheus
+
+logging:
+  level:
+    com.devops.userservice: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG

@@ -1,0 +1,15 @@
+meta {
+  name: Get Users with addresses
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/users/with-addresses
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

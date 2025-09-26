@@ -54,4 +54,10 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/with-addresses")
+    public ResponseEntity<List<UserResponseDto>> getAllUsersWithAddresses() {
+        List<UserResponseDto> users = userService.getAllUsersWithAddresses();
+        return ResponseEntity.ok(users);
+    }
 }
