@@ -121,22 +121,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - ecommerce-network
-    profiles:
-      - chaos
-    # Command will be specified when running chaos scenarios
-
-  # LOAD TESTING
-  jmeter:
-    image: justb4/jmeter:5.5
-    container_name: jmeter
-    volumes:
-      - ./jmeter-tests:/tests
-      - ./jmeter-results:/results
-    networks:
-      - ecommerce-network
-    profiles:
-      - load-test
-    # Command will be specified when running load tests
+    command: ["pumba", "--log-level", "info", "--interval", "1h", "dry-run"]
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
