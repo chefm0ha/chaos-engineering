@@ -127,8 +127,7 @@ services:
     networks:
       - ecommerce-network
     command:
-      - '--port=8092'
-      - '--listen_ip=0.0.0.0'  # Ajout important
+      - '--port=8092'  # Tell cAdvisor to use port 8092 internally
       - '--housekeeping_interval=30s'
       - '--max_housekeeping_interval=35s'
       - '--allow_dynamic_housekeeping=true'
