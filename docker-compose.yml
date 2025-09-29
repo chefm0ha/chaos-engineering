@@ -113,16 +113,6 @@ services:
     networks:
       - ecommerce-network
 
-  # CHAOS ENGINEERING
-  pumba:
-    image: gaiaadm/pumba:0.9.0
-    container_name: pumba
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - ecommerce-network
-    command: ["pumba", "--log-level", "info", "--interval", "1h", "dry-run"]
-
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
     container_name: cadvisor
@@ -137,7 +127,8 @@ services:
     networks:
       - ecommerce-network
     command:
-      - '--port=8092'  # Tell cAdvisor to use port 8092 internally
+      - '--port=8092'
+      - '--listen_ip=0.0.0.0'  # Ajout important
       - '--housekeeping_interval=30s'
       - '--max_housekeeping_interval=35s'
       - '--allow_dynamic_housekeeping=true'
