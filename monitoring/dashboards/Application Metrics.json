@@ -1,0 +1,47 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Service Uptime",
+      "targets": [
+        { "expr": "up{job='spring-boot-apps'}", "legendFormat": "{{instance}}", "refId": "A" }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Request Rate",
+      "targets": [
+        { "expr": "rate(http_server_requests_seconds_count[5m])", "legendFormat": "{{application}}", "refId": "B" }
+      ],
+      "gridPos": { "x": 0, "y": 8, "w": 24, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Request Latency (p95)",
+      "targets": [
+        { "expr": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m])) by (le, application))", "legendFormat": "{{application}}", "refId": "C" }
+      ],
+      "gridPos": { "x": 0, "y": 16, "w": 24, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM Heap Memory Used",
+      "targets": [
+        { "expr": "jvm_memory_used_bytes{area='heap'}", "legendFormat": "{{application}}", "refId": "D" }
+      ],
+      "gridPos": { "x": 0, "y": 24, "w": 24, "h": 8 }
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["spring-boot", "application"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timezone": "browser",
+  "title": "Application Metrics Dashboard",
+  "version": 2
+}
