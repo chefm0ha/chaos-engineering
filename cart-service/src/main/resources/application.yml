@@ -1,5 +1,6 @@
 server:
-  port: 8083
+  #port: 8084
+  port: 8085 #pour service 2
 
 spring:
   application:

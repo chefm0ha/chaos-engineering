@@ -1,5 +1,10 @@
 server:
-  port: 8082
+  port: 8082 # pour service 2
+  #port: 8082 # pour service 1
+
+logging:
+  level:
+    org.springframework.web: DEBUG
 
 spring:
   application:

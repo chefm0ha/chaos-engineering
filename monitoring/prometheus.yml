@@ -13,10 +13,10 @@ scrape_configs:
     static_configs:
       - targets:
           - 'user-service:8081'
-          - 'product-service:8082'
-          - 'cart-service:8083'
-          - 'order-service:8084'
-          - 'review-service:8085'
+          - 'product-service-1:8082'
+          - 'product-service-2:8083'
+          - 'cart-service-1:8084'
+          - 'cart-service-2:8085'
           - 'api-gateway:8080'
 
   # Monitor cAdvisor (Docker containers)

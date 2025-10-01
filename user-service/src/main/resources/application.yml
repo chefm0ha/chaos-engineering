@@ -6,7 +6,7 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+    url: jdbc:postgresql://localhost:5432/ecommerce_shared_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -42,5 +42,3 @@ logging:
   level:
     com.devops.userservice: DEBUG
     org.springframework.web: DEBUG
-    org.hibernate.SQL: DEBUG
-

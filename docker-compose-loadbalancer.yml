@@ -1,0 +1,208 @@
+services:
+  # DATABASE
+  shared-postgres:
+    image: postgres:15-alpine
+    container_name: ecommerce-shared-postgres
+    environment:
+      POSTGRES_DB: ecommerce_shared_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - shared_db_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
+  # MICROSERVICES:
+
+  # REPLICAS - User-Service :
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "9081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - shared-postgres
+    networks:
+      - ecommerce-network
+
+  #-------------------------------------------------#
+  # REPLICAS - Product-Service :
+  product-service-1:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    container_name: product-service-1
+    ports:
+      - "9082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - shared-postgres
+    networks:
+      - ecommerce-network
+
+
+  product-service-2:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile-instance-2
+    container_name: product-service-2
+    ports:
+      - "9083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - shared-postgres
+    networks:
+      - ecommerce-network
+
+  #-------------------------------------------------#
+  # REPLICAS - cart-Service :
+  cart-service-1:
+    build:
+      context: ./cart-service
+      dockerfile: Dockerfile
+    container_name: cart-service-1
+    ports:
+      - "9084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SERVICES_USER-SERVICE_URL=http://user-service:8081
+      - SERVICES_PRODUCT-SERVICE_URL=http://product-service:8082
+    depends_on:
+      - shared-postgres
+      - user-service
+      - product-service-1
+      - product-service-2
+    networks:
+      - ecommerce-network
+
+  cart-service-2:
+    build:
+      context: ./cart-service
+      dockerfile: Dockerfile-instance-2
+    container_name: cart-service-2
+    ports:
+      - "9085:8085"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-postgres:5432/ecommerce_shared_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SERVICES_USER-SERVICE_URL=http://user-service:8081
+      - SERVICES_PRODUCT-SERVICE_URL=http://product-service:8082
+    depends_on:
+      - shared-postgres
+      - user-service
+      - product-service-1
+      - product-service-2
+    networks:
+      - ecommerce-network
+
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "9080:8080"
+    depends_on:
+      - user-service
+      - product-service-1
+      - product-service-2
+      - cart-service-1
+      - cart-service-2
+    networks:
+      - ecommerce-network
+
+  # CHAOS ENGINEERING
+  pumba:
+    image: gaiaadm/pumba:0.9.0
+    container_name: pumba
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ecommerce-network
+    profiles:
+      - chaos
+    # Command will be specified when running chaos scenarios
+
+  # LOAD TESTING
+  jmeter:
+    image: justb4/jmeter:5.5
+    container_name: jmeter
+    volumes:
+      - ./jmeter-tests:/tests
+      - ./jmeter-results:/results
+    networks:
+      - ecommerce-network
+    profiles:
+      - load-test
+    # Command will be specified when running load tests
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    ports:
+      - "9092:8092"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    privileged: true
+    networks:
+      - ecommerce-network
+    command:
+      - '--port=8092'  # Tell cAdvisor to use port 8092 internally
+      - '--housekeeping_interval=30s'
+      - '--max_housekeeping_interval=35s'
+      - '--allow_dynamic_housekeeping=true'
+      - '--global_housekeeping_interval=30s'
+      - '--disable_metrics=cpu_topology,cpuset,hugetlb,memory_numa,process,referenced_memory,resctrl,sched,tcp,udp'
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - ecommerce-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3010:3010"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_HTTP_PORT=3010
+    networks:
+      - ecommerce-network
+
+volumes:
+  shared_db_data:
+
+networks:
+  ecommerce-network:
+    driver: bridge

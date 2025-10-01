@@ -5,33 +5,26 @@ spring:
   application:
     name: api-gateway
   profiles:
-    active: local  # Default profile
+    active: local
 
   cloud:
+    loadbalancer:
+      configurations: default
+      cache:
+        enabled: true
+        ttl: 35s
+      health-check:
+        initial-delay: 0
+        interval: 25s
+
     gateway:
       routes:
-        # SPECIFIC ROUTES FIRST - Order matters!
 
         # Review Service Routes
         - id: review-service-user-reviews
           uri: ${services.review-service.url}
           predicates:
             - Path=/api/users/*/reviews/**
-          filters:
-            - StripPrefix=0
-
-        - id: review-service-product-reviews
-          uri: ${services.review-service.url}
-          predicates:
-            - Path=/api/products/*/reviews/**
-          filters:
-            - StripPrefix=0
-
-        # Cart Service Routes
-        - id: cart-service
-          uri: ${services.cart-service.url}
-          predicates:
-            - Path=/api/users/*/cart/**
           filters:
             - StripPrefix=0
 
@@ -60,18 +53,26 @@ spring:
           filters:
             - StripPrefix=0
 
-        # Product Service Routes
+        # Product Service Routes - Load Balancing
         - id: product-service-categories
-          uri: ${services.product-service.url}
+          uri: lb://product-service
           predicates:
             - Path=/api/categories/**
           filters:
             - StripPrefix=0
 
         - id: product-service-products
-          uri: ${services.product-service.url}
+          uri: lb://product-service
           predicates:
             - Path=/api/products/**
+          filters:
+            - StripPrefix=0
+
+        # Cart Service Routes - Load Balancing
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/users/*/cart/**
           filters:
             - StripPrefix=0
 
@@ -93,14 +94,16 @@ spring:
 services:
   user-service:
     url: http://localhost:8081
-  product-service:
-    url: http://localhost:8082
-  cart-service:
-    url: http://localhost:8083
   order-service:
     url: http://localhost:8084
   review-service:
     url: http://localhost:8085
+
+# Configuration custom pour définir l'algorithme
+#loadbalancer:
+#  algorithm:
+#    product-service: round-robin  # Options: round-robin, random, weighted
+#    cart-service: round-robin
 
 management:
   endpoints:
