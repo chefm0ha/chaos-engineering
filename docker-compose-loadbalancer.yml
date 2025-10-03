@@ -127,51 +127,25 @@ services:
     networks:
       - ecommerce-network
 
-  # CHAOS ENGINEERING
-  pumba:
-    image: gaiaadm/pumba:0.9.0
-    container_name: pumba
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - ecommerce-network
-    profiles:
-      - chaos
-    # Command will be specified when running chaos scenarios
-
-  # LOAD TESTING
-  jmeter:
-    image: justb4/jmeter:5.5
-    container_name: jmeter
-    volumes:
-      - ./jmeter-tests:/tests
-      - ./jmeter-results:/results
-    networks:
-      - ecommerce-network
-    profiles:
-      - load-test
-    # Command will be specified when running load tests
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.0
-    container_name: cadvisor
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    hostname: ecommerce-monitoring
     ports:
-      - "9092:8092"
+      - "19999:19999"  # Web UI
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
     volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    privileged: true
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
     networks:
       - ecommerce-network
-    command:
-      - '--port=8092'  # Tell cAdvisor to use port 8092 internally
-      - '--housekeeping_interval=30s'
-      - '--max_housekeeping_interval=35s'
-      - '--allow_dynamic_housekeeping=true'
-      - '--global_housekeeping_interval=30s'
-      - '--disable_metrics=cpu_topology,cpuset,hugetlb,memory_numa,process,referenced_memory,resctrl,sched,tcp,udp'
 
   prometheus:
     image: prom/prometheus:latest

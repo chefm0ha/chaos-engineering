@@ -19,7 +19,10 @@ scrape_configs:
           - 'cart-service-2:8085'
           - 'api-gateway:8080'
 
-  # Monitor cAdvisor (Docker containers)
-  - job_name: 'cadvisor'
+  # Monitor Netdata (replaces cAdvisor)
+  - job_name: 'netdata'
+    metrics_path: '/api/v1/allmetrics'
+    params:
+      format: ['prometheus']
     static_configs:
-      - targets: ['cadvisor:8092']
+      - targets: ['netdata:19999']
