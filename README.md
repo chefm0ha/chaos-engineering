@@ -627,16 +627,6 @@ docker run --rm -it --name stressor --cpus=2 polinux/stress \
 
 ##  📊 Microservices Monitoring with Prometheus, Grafana, cAdvisor, Actuator, and Micrometer
 
-### Abstract
-This project implements a monitoring solution for microservices leveraging **Prometheus**, **Grafana**, **cAdvisor**, **Spring Boot Actuator**, and **Micrometer**.  
-The solution enables real-time visualization of:
-- Application performance
-- System resource utilization
-- Service-level availability  
-
----
-
-### 1. Introduction
 Monitoring distributed microservices is critical for ensuring reliability, performance, and availability.  
 This project integrates the following tools:
 - **Prometheus** → Metrics collection & storage  
@@ -647,9 +637,9 @@ This project integrates the following tools:
 
 ---
 
-### 2. Components
+### Components
 
-### 2.1 Prometheus
+### Prometheus
 - Open-source monitoring toolkit  
 - Scrapes metrics at intervals from defined targets  
 - Stores data as **time-series**  
@@ -661,7 +651,7 @@ This project integrates the following tools:
 
 ---
 
-### 2.2 Grafana
+### Grafana
 - Visualization platform for metrics from Prometheus  
 - Features: dashboards, alerts, filters, and time-based queries  
 - Used here to create **two dashboards**:
@@ -670,14 +660,14 @@ This project integrates the following tools:
 
 ---
 
-### 2.3 cAdvisor
+### cAdvisor
 - Collects **container-level resource usage & performance**  
 - Metrics: CPU, memory, disk I/O, network, uptime  
 - Exposes metrics in Prometheus format  
 
 ---
 
-### 2.4 Spring Boot Actuator
+### Spring Boot Actuator
 - Provides endpoints for monitoring & managing apps  
 - Example:  
   - `/actuator/health` → health status  
@@ -685,28 +675,10 @@ This project integrates the following tools:
 
 ---
 
-### 2.5 Micrometer
+### Micrometer
 - Metrics instrumentation library  
 - Integrated with Spring Boot  
 - Exposes JVM, HTTP, and custom metrics  
 - Acts as a **bridge** between Actuator and Prometheus  
-
----
-
-### 3. Architecture
-
-```text
-+--------------------------+      +-------------------+
-| Spring Boot Services     | ---> | Prometheus        |
-| (Actuator + Micrometer)  |      |                   |
-+--------------------------+      +-------------------+
-                                         |
-                                         v
-                                 +---------------+
-                                 | Grafana       |
-                                 +---------------+
-+--------------------------+      ^
-| Docker Containers        | ---> | cAdvisor      |
-+--------------------------+      +---------------+
 
 
